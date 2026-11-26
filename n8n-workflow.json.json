@@ -1,0 +1,73 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-webhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "08ef70ae-ef12-4e61-8d13-ba95c6f8129e",
+      "name": "Webhook",
+      "webhookId": "68f818e3-0730-4ab5-8a45-a3ee550ef34b"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8000/lead",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{$json.body.name}}\",\n  \"email\": \"{{$json.body.email}}\",\n  \"phone\": \"{{$json.body.phone}}\",\n  \"message\": \"{{$json.body.message}}\",\n  \"source\": \"{{$json.body.source}}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "588bd8ea-78d6-43c4-998d-7e0ea8e9770e",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "187b9a79-15c3-4d51-9d95-12f572cd75c6",
+  "meta": {
+    "instanceId": "6058affb71163e0b05a877c5308c2939414a1cb2e683092658a5bff8a51ae100"
+  },
+  "id": "UDYoenyLgI1gdnMI",
+  "tags": []
+}
